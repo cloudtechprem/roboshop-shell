@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This is a test script
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
