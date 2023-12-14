@@ -28,20 +28,20 @@ else
     echo -e "You are a root user"
 fi
 
-cp mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp mongodb.repo /etc/yum.repos.d/mongodb.repo &>> $LOGFILE
 VALIDATE $? "Copying MongoDB repo is"
 
-dnf install mongodb-org -y $>> $LOGFILE
+dnf install mongodb-org -y &>> $LOGFILE
 VALIDATE $? "Installing MongoDB is"
 
-systemctl enable mongod $>> $LOGFILE
+systemctl enable mongod &>> $LOGFILE
 VALIDATE $? "Enabling MongoDb is"
 
-systemctl start mongod $>> $LOGFILE
+systemctl start mongod &>> $LOGFILE
 VALIDATE $? "Starting MongoDB"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf $>> $LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
 VALIDATE $? "Remote access to MongoDB"
 
-systemctl restart mongod $>> $LOGFILE
+systemctl restart mongod &>> $LOGFILE
 VALIDATE $? "Restarting MongoDB"

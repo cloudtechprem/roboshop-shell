@@ -28,53 +28,52 @@ else
     echo -e "You are a root user"
 fi
 
-dnf module disable nodejs -y $>> $LOGFILE
+dnf module disable nodejs -y &>> $LOGFILE
 VALIDATE $? "Disabling NodeJS"
 
-dnf module enable nodejs:18 -y $>> $LOGFILE
+dnf module enable nodejs:18 -y &>> $LOGFILE
 VALIDATE $? "Enabling NodeJS:18"
 
-dnf install nodejs -y $>> $LOGFILE
+dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing NodeJS"
 
-useradd roboshop $>> $LOGFILE
+useradd roboshop &>> $LOGFILE
 VALIDATE $? "creating Roboshop user"
 
-mkdir /app $>> $LOGFILE
+mkdir /app &>> $LOGFILE
 VALIDATE $? "creating App directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip $>> $LOGFILE
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
+
+cd /app &>> $LOGFILE
 VALIDATE $? "Download the Application Code"
 
-cd /app $>> $LOGFILE
-VALIDATE $? "Download the Application Code"
-
-unzip /tmp/catalogue.zip $>> $LOGFILE
+unzip /tmp/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Unzipping catalogue.zip"
 
-cd /app $>> $LOGFILE
+cd /app &>> $LOGFILE
 VALIDATE $? "Change Directory"
 
-npm install $>> $LOGFILE
+npm install &>> $LOGFILE
 VALIDATE $? "Download the Application Code"
 
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service $>> $LOGFILE
+cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Copying and creating catalogue.service"
 
-systemctl daemon-reload $>> $LOGFILE
+systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "Daemon Reload"
 
-systemctl enable catalogue $>> $LOGFILE
+systemctl enable catalogue &>> $LOGFILE
 VALIDATE $? "Enabling the catalogue.service"
 
-systemctl start catalogue $>> $LOGFILE
+systemctl start catalogue &>> $LOGFILE
 VALIDATE $? "Starting the catalogue.service"
 
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo $>> $LOGFILE
+cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 VALIDATE $? "Copying and creating mongodb repo"
 
-dnf install mongodb-org-shell -y $>> $LOGFILE
+dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing MongoDB client"
 
-mongo --host mongodb.learndevops.space </app/schema/catalogue.js $>> $LOGFILE
+mongo --host mongodb.learndevops.space </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE $? "Loading catalogue data into MongoDB"
