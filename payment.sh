@@ -34,7 +34,7 @@ VALIDATE $? "Installing Python"
 useradd roboshop &>> $LOGFILE
 VALIDATE $? "Adding roboshop user"
 
-mkdir /app &>> $LOGFILE
+mkdir -p /app &>> $LOGFILE
 VALIDATE $? "creating app directory"
 
 curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>> $LOGFILE
@@ -48,6 +48,9 @@ VALIDATE $? "unzipping payment.zip contents"
 
 cd /app &>> $LOGFILE
 VALIDATE $? "changing the directory"
+
+pip3.6 install -r requirements.txt -y
+VALIDATE $? "Downloading dependencies"
 
 cp /home/centos/roboshop-shell/payment.service /etc/systemd/system/payment.service &>> $LOGFILE
 VALIDATE $? "creating payment.service"
