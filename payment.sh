@@ -49,7 +49,7 @@ VALIDATE $? "unzipping payment.zip contents"
 cd /app &>> $LOGFILE
 VALIDATE $? "changing the directory"
 
-pip3.6 install -r requirements.txt -y
+pip3.6 install -r requirements.txt &>> $LOGFILE
 VALIDATE $? "Downloading dependencies"
 
 cp /home/centos/roboshop-shell/payment.service /etc/systemd/system/payment.service &>> $LOGFILE
