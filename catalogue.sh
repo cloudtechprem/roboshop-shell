@@ -40,7 +40,7 @@ VALIDATE $? "Installing NodeJS"
 useradd roboshop &>> $LOGFILE
 VALIDATE $? "creating Roboshop user"
 
-mkdir /app &>> $LOGFILE
+mkdir -p /app &>> $LOGFILE
 VALIDATE $? "creating App directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
@@ -55,7 +55,7 @@ cd /app &>> $LOGFILE
 VALIDATE $? "Change Directory"
 
 npm install &>> $LOGFILE
-VALIDATE $? "Download the Application Code"
+VALIDATE $? "Downloading the Dependencies"
 
 cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Copying and creating catalogue.service"
